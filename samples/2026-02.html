@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Sample 2026-02</title>
+</head>
+
+<body>
+    <h1>2026-02</h1>
+    <section>
+        <input id="source" value="Lorem Ipsum" readonly />
+        <button id="btnCopy">Copy</button>
+        <input id="input" placeholder="Paste result here" />
+        <script>
+            document.getElementById('btnCopy').addEventListener('click', () => {
+                const source = document.getElementById('source');
+                source.select();
+                document.execCommand('copy');
+            });
+        </script>
+    </section>
+    <section>
+        <input id="source2" value="dolor sit amet" />
+        <button id="btnCopy2">Cut</button>
+        <input id="input2" placeholder="Paste result here" />
+        <script>
+            document.getElementById('btnCopy2').addEventListener('click', () => {
+                const source = document.getElementById('source2');
+                source.select();
+                document.execCommand('cut');
+            });
+        </script>
+    </section>
+    <hr />
+    <section>
+        <input id="source3" value="Lorem Ipsum" readonly />
+        <button id="btnCopy3">Copy</button>
+        <button id="btnPaste3">Paste</button>
+        <input id="input3" placeholder="Paste result here" />
+        <script>
+            document.getElementById('btnCopy3').addEventListener('click', async () => {
+                const source = document.getElementById('source3');
+                await navigator.clipboard.writeText(source.value);
+            });
+            document.getElementById('btnPaste3').addEventListener('click', async () => {
+                const text = await navigator.clipboard.readText();
+                document.getElementById('input3').value = text;
+            });
+        </script>
+    </section>
+    <hr />
+    <section>
+        <input id="source4" value="Lorem Ipsum" readonly />
+        <input id="input4" placeholder="Paste result here" />
+        <script>
+            document.getElementById('source4').addEventListener('copy', (event) => {
+                event.preventDefault();
+                const source = document.getElementById('source4');
+                event.clipboardData.setData('text/plain', 'copied ' + source.value);
+            });
+            document.getElementById('input4').addEventListener('paste', (event) => {
+                event.preventDefault();
+                const text = event.clipboardData.getData('text/plain');
+                document.getElementById('input4').value = text;
+            });
+        </script>
+    </section>
+</body>
+
+</html>
